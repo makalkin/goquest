@@ -1,0 +1,31 @@
+{{set . "title" "Quests"}}
+{{template "header.html" .}}
+
+<header class="page-header" style="background-color:#8deff1">
+    <div class="container">
+        <div class="row">
+            <h1>Quest page <small>all you need is to pick one.</small></h1>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <h3>Add quest:</h3>
+        <div>
+            <form action="/add-quest" method="POST">
+                <input type="text" name="myName" /><br/>
+                <input type="submit" value="Say hello!" />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Quests available:</h3>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

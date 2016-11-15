@@ -5,7 +5,7 @@
 module:testrunner
 
 GET     /                                       App.Index
-WS     	/quests                                 App.Quests
+GET    	/quests                                 App.Quests
 POST    /quest                                 	App.Quest
 
 # Ignore favicon requests

@@ -6,7 +6,18 @@ module:testrunner
 
 GET     /                                       App.Index
 GET    	/quests                                 App.Quests
-POST    /quest                                 	App.Quest
+GET    	/auth/logout                            App.Logout
+
+POST    /quest                                 	Quest.Add
+#GET    	/quest                                 	Quest.Get
+#PUT   	/quest                                 	Quest.Update
+#DELETE 	/quest                                 	Quest.Delete
+
+#POST    /circle                                 Circle.Add
+#GET    	/quest                                 	Circle.Get
+#PUT   	/quest                                 	Circle.Update
+#DELETE 	/quest                                 	Circle.Delete
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

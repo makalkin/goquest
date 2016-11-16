@@ -1,5 +1,8 @@
   {{if eq .RunMode "dev"}}
     {{template "debug.html" .}}
   {{end}}
+  {{range .footerScripts}}
+     <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+  {{end}}
   </body>
 </html>

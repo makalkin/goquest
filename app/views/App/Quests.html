@@ -1,7 +1,7 @@
 {{set . "title" "Quests"}}
 {{template "header.html" .}}
 
-<header class="page-header" style="background-color:#8deff1">
+<header class="page-header" style="background-color:#f1ee00">
     <div class="container">
         <div class="row">
             <h1>Quest page <small>all you need is to pick one.</small></h1>
@@ -14,9 +14,30 @@
     <div class="row">
         <h3>Add quest:</h3>
         <div>
-            <form action="/add-quest" method="POST">
-                <input type="text" name="myName" /><br/>
-                <input type="submit" value="Say hello!" />
+            <form class="form-horizontal" id="questForm">
+                <div class="form-group">
+                    <label for="questTitle" class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" id="questTitle" class="form-control" placeholder="An EPIC quest!" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="questExperience" class="col-sm-2 control-label">Experience</label>
+                    <div class="col-sm-6">
+                        <input type="number" name="experience" id="questExperience" class="form-control" placeholder="50" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="questCurrency" class="col-sm-2 control-label">Moniz</label>
+                    <div class="col-sm-6">
+                        <input type="number" name="currency" id="questCurrency" class="form-control" placeholder="50" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Add quest!</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -27,5 +48,7 @@
         </div>
     </div>
 </div>
+
+{{append . "footerScripts" "js/quests.js"}}
 
 {{template "footer.html" .}}

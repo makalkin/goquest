@@ -1,7 +1,9 @@
 package app
 
-import "github.com/revel/revel"
-
+import (
+	"github.com/makalkin/goquest/app/models"
+	"github.com/revel/revel"
+)
 func init() {
 	// Filters is the default set of global filters.
 	revel.Filters = []revel.Filter{
@@ -23,6 +25,7 @@ func init() {
 	// ( order dependent )
 	// revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
+	revel.OnAppStart(models.InitConstants)
 }
 
 // TODO turn this into revel.HeaderFilter

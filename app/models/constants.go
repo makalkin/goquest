@@ -30,11 +30,10 @@ var (
 
 func InitDB()  {
 	config := &bongo.Config{
-		ConnectionString: revel.Config.StringDefault("db.spec",""),
-		Database:         revel.Config.StringDefault("", "goquest_db"),
+		ConnectionString: revel.Config.String("db.spec"),
+		Database:         revel.Config.String("db.name"),
 	}
 	var err error
-	fmt.Print(revel.Config.StringDefault("db",""), revel.Config.StringDefault("", "goquest_db"))
 	DB, err = bongo.Connect(config)
 
 	if err != nil {

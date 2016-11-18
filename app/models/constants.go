@@ -30,7 +30,7 @@ var (
 
 func InitDB()  {
 	config := &bongo.Config{
-		ConnectionString: revel.Config.StringDefault("db.import",""),
+		ConnectionString: revel.Config.StringDefault("db.spec",""),
 		Database:         revel.Config.StringDefault("", "goquest_db"),
 	}
 	var err error

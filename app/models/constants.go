@@ -5,7 +5,6 @@ import (
 	"golang.org/x/oauth2/facebook"
 	"github.com/revel/revel"
 	"github.com/maxwellhealth/bongo"
-	"fmt"
 	"log"
 )
 

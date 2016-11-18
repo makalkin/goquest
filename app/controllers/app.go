@@ -76,11 +76,9 @@ func setuser(c *revel.Controller) revel.Result {
 		user := &models.User{}
 		if err := userService.GetUser(map[string]interface{}{"fid": uid}, user); err == nil {
 			c.RenderArgs["user"] = user
-		} else {
-			c.RenderArgs["authUrl"] = models.FACEBOOK.AuthCodeURL("state", oauth2.AccessTypeOffline)
 		}
 	}
-
+	c.RenderArgs["authUrl"] = models.FACEBOOK.AuthCodeURL("state", oauth2.AccessTypeOffline)
 	return nil
 }
 

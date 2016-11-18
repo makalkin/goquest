@@ -29,8 +29,8 @@ var (
 
 func InitDB()  {
 	config := &bongo.Config{
-		ConnectionString: revel.Config.String("db.spec"),
-		Database:         revel.Config.String("db.name"),
+		ConnectionString: revel.Config.StringDefault("db.spec", ""),
+		Database:         revel.Config.StringDefault("db.name", ""),
 	}
 	var err error
 	DB, err = bongo.Connect(config)

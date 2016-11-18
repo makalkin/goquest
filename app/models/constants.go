@@ -4,6 +4,9 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/facebook"
 	"github.com/revel/revel"
+	"github.com/maxwellhealth/bongo"
+	"fmt"
+	"log"
 )
 
 var (
@@ -18,5 +21,23 @@ func InitConstants() {
 		Scopes: 	[]string{},
 		Endpoint:	facebook.Endpoint,
 		RedirectURL:	revel.Config.StringDefault("facebook.RedirectUrl", redirectUrl),
+	}
+}
+
+var (
+	DB *bongo.Connection
+)
+
+func InitDB()  {
+	config := &bongo.Config{
+		ConnectionString: revel.Config.StringDefault("db.import",""),
+		Database:         revel.Config.StringDefault("", "goquest_db"),
+	}
+	var err error
+	fmt.Print(revel.Config.StringDefault("db",""), revel.Config.StringDefault("", "goquest_db"))
+	DB, err = bongo.Connect(config)
+
+	if err != nil {
+		log.Fatal(err)
 	}
 }

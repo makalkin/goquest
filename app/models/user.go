@@ -1,20 +1,49 @@
 package models
 
-import "math/rand"
+import (
+	"github.com/maxwellhealth/bongo"
+	"gopkg.in/mgo.v2/bson"
+)
+
+type UserService struct {
+
+}
 
 type User struct {
-	Uid         int
+	bongo.DocumentBase `bson:",inline"`
 	AccessToken string
+	Name string
+	Fid string
 }
 
-var db = make(map[int]*User)
 
-func GetUser(id int) *User {
-	return db[id]
+//
+//func (service UserService) getUsers(query interface{}) []*User {
+//	return DB.Collection("users").Find(query)
+//}
+
+func (service UserService) GetUserById(StringId string) (*User, bool) {
+	user := &User{}
+	err := DB.Collection("users").FindById(bson.ObjectIdHex(StringId), user)
+	println("GET", user, user.IsNew(), err)
+	if _, ok := err.(*bongo.DocumentNotFoundError); ok {
+		return user, false
+	} else {
+		return user, err == nil
+	}
 }
 
-func NewUser() *User {
-	user := &User{Uid: rand.Intn(10000)}
-	db[user.Uid] = user
-	return user
+func (service UserService) GetUser(query map[string]interface{}, user *User) ( error) {
+	err := DB.Collection("users").FindOne(bson.M(query), user)
+	return err
+}
+
+func (service UserService) AddUser(user *User) error {
+	err := DB.Collection("users").Save(user)
+	return err
+}
+
+func (service UserService) UpdateUser(user *User) error {
+	err := DB.Collection("users").Save(user)
+	return err
 }

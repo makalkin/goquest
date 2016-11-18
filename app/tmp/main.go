@@ -6,11 +6,12 @@ import (
 	"reflect"
 	"github.com/revel/revel"
 	_ "github.com/makalkin/goquest/app"
-	controllers "github.com/makalkin/goquest/app/controllers"
+	controllers "github.com/makalkin/goquest/app/api/v1/app/controllers"
+	controllers0 "github.com/makalkin/goquest/app/controllers"
 	tests "github.com/makalkin/goquest/tests"
-	controllers1 "github.com/revel/modules/static/app/controllers"
+	controllers2 "github.com/revel/modules/static/app/controllers"
 	_ "github.com/revel/modules/testrunner/app"
-	controllers0 "github.com/revel/modules/testrunner/app/controllers"
+	controllers1 "github.com/revel/modules/testrunner/app/controllers"
 	"github.com/revel/revel/testing"
 )
 
@@ -29,14 +30,29 @@ func main() {
 	revel.Init(*runMode, *importPath, *srcPath)
 	revel.INFO.Println("Running revel server")
 	
-	revel.RegisterController((*controllers.App)(nil),
+	revel.RegisterController((*controllers.Quest)(nil),
+		[]*revel.MethodType{
+			&revel.MethodType{
+				Name: "Add",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "title", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "experience", Type: reflect.TypeOf((*int)(nil)) },
+					&revel.MethodArg{Name: "currency", Type: reflect.TypeOf((*int)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			
+		})
+	
+	revel.RegisterController((*controllers0.App)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Index",
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					33: []string{ 
+					18: []string{ 
 					},
 				},
 			},
@@ -45,7 +61,7 @@ func main() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					37: []string{ 
+					22: []string{ 
 					},
 				},
 			},
@@ -67,22 +83,7 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers.Quest)(nil),
-		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Add",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "title", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "experience", Type: reflect.TypeOf((*int)(nil)) },
-					&revel.MethodArg{Name: "currency", Type: reflect.TypeOf((*int)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			
-		})
-	
-	revel.RegisterController((*controllers0.TestRunner)(nil),
+	revel.RegisterController((*controllers1.TestRunner)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Index",
@@ -123,7 +124,7 @@ func main() {
 			
 		})
 	
-	revel.RegisterController((*controllers1.Static)(nil),
+	revel.RegisterController((*controllers2.Static)(nil),
 		[]*revel.MethodType{
 			&revel.MethodType{
 				Name: "Serve",
@@ -148,9 +149,6 @@ func main() {
 		})
 	
 	revel.DefaultValidationKeys = map[string]map[int]string{ 
-		"github.com/makalkin/goquest/app/controllers.Quest.Add": { 
-			11: "title",
-		},
 	}
 	testing.TestSuites = []interface{}{ 
 		(*tests.AppTest)(nil),

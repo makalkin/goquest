@@ -4,6 +4,24 @@ package routes
 import "github.com/revel/revel"
 
 
+type tQuest struct {}
+var Quest tQuest
+
+
+func (_ tQuest) Add(
+		title string,
+		experience int,
+		currency int,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "title", title)
+	revel.Unbind(args, "experience", experience)
+	revel.Unbind(args, "currency", currency)
+	return revel.MainRouter.Reverse("Quest.Add", args).Url
+}
+
+
 type tApp struct {}
 var App tApp
 
@@ -36,24 +54,6 @@ func (_ tApp) Logout(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("App.Logout", args).Url
-}
-
-
-type tQuest struct {}
-var Quest tQuest
-
-
-func (_ tQuest) Add(
-		title string,
-		experience int,
-		currency int,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "title", title)
-	revel.Unbind(args, "experience", experience)
-	revel.Unbind(args, "currency", currency)
-	return revel.MainRouter.Reverse("Quest.Add", args).Url
 }
 
 

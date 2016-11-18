@@ -3,7 +3,7 @@ $('#questForm').submit(function (event) {
     console.log('its on');
     $.ajax({
         type: "POST",
-        url: "/quest",
+        url: "/api/v1/quest",
         data: $('#questForm').serialize(),
         success: function (data) {
             alert(data);

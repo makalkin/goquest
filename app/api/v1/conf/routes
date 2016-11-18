@@ -1,0 +1,9 @@
+# Quests
+POST    /quest                                 	Quest.Add
+#GET    	/quest/:id                              Quest.Get
+#GET    	/quest			                        Quest.Get
+#PUT   	/quest/:id                              Quest.Update
+#DELETE 	/quest/:id                              Quest.Delete
+
+# Catch all
+#*       /:controller/:action                    :controller.:action

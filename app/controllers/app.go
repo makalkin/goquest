@@ -1,13 +1,15 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
+	. "github.com/makalkin/goquest/app/api/v1/app/services"
+	"github.com/makalkin/goquest/app/models"
 	"github.com/revel/revel"
 	"golang.org/x/oauth2"
-	"fmt"
-	"github.com/makalkin/goquest/app/models"
+	"gopkg.in/mgo.v2/bson"
 	"net/http"
 	"net/url"
-	"encoding/json"
 )
 
 type App struct {
@@ -28,7 +30,10 @@ func (c App) Auth(code string) revel.Result {
 		revel.ERROR.Println(err)
 		return c.Redirect(App.Index)
 	}
-
+	println(tok.AccessToken)
+	println(tok.Expiry.String())
+	println(tok.RefreshToken)
+	println(tok.TokenType)
 	// Not we have to retrieve user
 	userData := map[string]interface{}{}
 	resp, err := http.Get("https://graph.facebook.com/me?fields=id,name&access_token=" +
@@ -39,20 +44,22 @@ func (c App) Auth(code string) revel.Result {
 		revel.ERROR.Println(err)
 	}
 
-	service := models.UserService{}
+	service := UserService{}
 	user := &models.User{}
 
-	if err := service.GetUser(map[string]interface{}{"fid": userData["id"]}, user); err == nil {
+	if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
+		revel.INFO.Println("FOUND USER", user)
 		user.AccessToken = tok.AccessToken
 	} else {
 		user = &models.User{
 			AccessToken: tok.AccessToken,
-			Name: userData["name"].(string),
-			Fid: userData["id"].(string),
+			Name:        userData["name"].(string),
+			Fid:         userData["id"].(string),
 		}
 	}
-
+	revel.INFO.Println("ERRR", err)
 	if err := service.AddUser(user); err != nil {
+		revel.ERROR.Println(err)
 		return c.Redirect(App.Index)
 	} else {
 		c.RenderArgs["user"] = user
@@ -69,12 +76,12 @@ func (c App) Logout() revel.Result {
 }
 
 func setuser(c *revel.Controller) revel.Result {
-	userService := models.UserService{}
+	userService := UserService{}
 
 	if _, ok := c.Session["uid"]; ok {
 		uid, _ := c.Session["uid"]
 		user := &models.User{}
-		if err := userService.GetUser(map[string]interface{}{"fid": uid}, user); err == nil {
+		if err := userService.GetUser(bson.M{"fid": uid}, user); err == nil {
 			c.RenderArgs["user"] = user
 		}
 	}
@@ -82,6 +89,6 @@ func setuser(c *revel.Controller) revel.Result {
 	return nil
 }
 
-func init()  {
+func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
 }

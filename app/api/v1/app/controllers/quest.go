@@ -2,10 +2,10 @@ package controllers
 
 import "github.com/revel/revel"
 
+
 type Quest struct {
 	*revel.Controller
 }
-
 
 func (c Quest) Add(title string, experience int, currency int) revel.Result {
 	//c.Validation.MinSize(title, 3).Message("Cannot understand shit")
@@ -23,3 +23,7 @@ func (c Quest) Add(title string, experience int, currency int) revel.Result {
 	return c.RenderJson(data)
 }
 
+
+func init() {
+	revel.InterceptFunc(func(){}, revel.BEFORE, &Quest{})
+}

@@ -30,10 +30,7 @@ func (c App) Auth(code string) revel.Result {
 		revel.ERROR.Println(err)
 		return c.Redirect(App.Index)
 	}
-	println(tok.AccessToken)
-	println(tok.Expiry.String())
-	println(tok.RefreshToken)
-	println(tok.TokenType)
+
 	// Not we have to retrieve user
 	userData := map[string]interface{}{}
 	resp, err := http.Get("https://graph.facebook.com/me?fields=id,name&access_token=" +
@@ -45,19 +42,18 @@ func (c App) Auth(code string) revel.Result {
 	}
 
 	service := UserService{}
-	user := &models.User{}
+	user := c.connected()
 
-	if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
-		revel.INFO.Println("FOUND USER", user)
-		user.AccessToken = tok.AccessToken
-	} else {
-		user = &models.User{
-			AccessToken: tok.AccessToken,
-			Name:        userData["name"].(string),
-			Fid:         userData["id"].(string),
+	if user.IsNew() {
+		if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
+			revel.INFO.Println("FOUND USER", user)
 		}
+	} else {
+		user.Name = userData["name"].(string)
+		user.Fid = userData["id"].(string)
 	}
-	revel.INFO.Println("ERRR", err)
+	user.AccessToken = tok.AccessToken
+
 	if err := service.AddUser(user); err != nil {
 		revel.ERROR.Println(err)
 		return c.Redirect(App.Index)
@@ -67,28 +63,39 @@ func (c App) Auth(code string) revel.Result {
 
 	c.Session["uid"] = fmt.Sprintf("%v", user.Fid)
 
-	return c.Redirect(App.Index)
+	return c.Redirect(c.Request.Referer())
 }
 
 func (c App) Logout() revel.Result {
 	delete(c.Session, "uid")
-	return c.Redirect(App.Index)
+	delete(c.RenderArgs, "user")
+	return c.Redirect(c.Request.Referer())
 }
 
 func setuser(c *revel.Controller) revel.Result {
 	userService := UserService{}
+	var user *models.User
 
 	if _, ok := c.Session["uid"]; ok {
 		uid, _ := c.Session["uid"]
-		user := &models.User{}
+		user = &models.User{}
 		if err := userService.GetUser(bson.M{"fid": uid}, user); err == nil {
 			c.RenderArgs["user"] = user
 		}
 	}
+
+	if user == nil {
+		user = &models.User{}
+	}
+	c.RenderArgs["user"] = user
 	c.RenderArgs["authUrl"] = models.FACEBOOK.AuthCodeURL("state", oauth2.AccessTypeOffline)
 	return nil
 }
 
 func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
+}
+
+func (c App) connected() *models.User {
+	return c.RenderArgs["user"].(*models.User)
 }

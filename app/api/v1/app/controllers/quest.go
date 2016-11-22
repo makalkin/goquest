@@ -1,7 +1,8 @@
 package controllers
 
-import "github.com/revel/revel"
-
+import (
+	"github.com/revel/revel"
+)
 
 type Quest struct {
 	*revel.Controller
@@ -18,6 +19,7 @@ func (c Quest) Add(title string, experience int, currency int) revel.Result {
 	//	c.Response.Status = 400
 	//	return c.RenderJson(errorData)
 	//}
+
 	data := make(map[string]interface{})
 	data["success"] = true
 	return c.RenderJson(data)
@@ -27,7 +29,6 @@ func checkAuth(c *revel.Controller) revel.Result {
 
 	return nil
 }
-
 
 func init() {
 	revel.InterceptFunc(checkAuth, revel.BEFORE, &Quest{})

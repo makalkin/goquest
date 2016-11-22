@@ -22,6 +22,29 @@ func (_ tQuest) Add(
 }
 
 
+type tUser struct {}
+var User tUser
+
+
+func (_ tUser) Get(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("User.Get", args).Url
+}
+
+func (_ tUser) GetMe(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("User.GetMe", args).Url
+}
+
+
 type tApp struct {}
 var App tApp
 

@@ -5,5 +5,9 @@ POST    /quest                                 	Quest.Add
 #PUT   	/quest/:id                              Quest.Update
 #DELETE 	/quest/:id                              Quest.Delete
 
+GET /users/:id									User.Get
+GET /users/me									User.GetMe
+GET /users										User.Get
+
 # Catch all
 #*       /:controller/:action                    :controller.:action

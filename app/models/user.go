@@ -1,15 +1,17 @@
 package models
 
-import "gopkg.in/mgo.v2/bson"
+import (
+	"gopkg.in/mgo.v2"
+)
 
 type User struct {
 	Base        `bson:",inline"`
-	AccessToken string
-	Name        string
-	Fid         string
+	AccessToken string	`bson:"access_token" json:"accessToken,omitempty"`
+	Name        string	`json:"name"`
+	Fid         string	`json:"fid,omitempty"`
 	Circles     []struct {
-		CircleId   bson.ObjectId `bson:"_id,omitempty" json:"id"`
-		Experience int
-		Currency   int
-	} `bson:",omitempty"`
+		Circle   mgo.DBRef `bson:",omitempty" json:"circle"`
+		Experience int	`json:"experience"`
+		Currency   int	`json:"currency"`
+	} `bson:",omitempty" json:"circles,omitempty"`
 }

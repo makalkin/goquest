@@ -1,10 +1,12 @@
 package models
 
-import "gopkg.in/mgo.v2/bson"
+import (
+	"gopkg.in/mgo.v2"
+)
 
 type Quest struct {
 	Base       `bson:",inline"`
-	CircleId   bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	Circle     mgo.DBRef `bson:",omitempty" json:"circle"`
 	Experience int
 	Currency   int
 }

@@ -24,8 +24,9 @@ func (c App) Quests() revel.Result {
 	return c.Render()
 }
 
-func (c App) Auth(code string) revel.Result {
+func (c *App) Auth(code string) revel.Result {
 	tok, err := models.FACEBOOK.Exchange(oauth2.NoContext, code)
+
 	if err != nil {
 		revel.ERROR.Println(err)
 		return c.Redirect(App.Index)
@@ -35,7 +36,9 @@ func (c App) Auth(code string) revel.Result {
 	userData := map[string]interface{}{}
 	resp, err := http.Get("https://graph.facebook.com/me?fields=id,name&access_token=" +
 		url.QueryEscape(tok.AccessToken))
-	defer resp.Body.Close()
+	if err == nil {
+		defer resp.Body.Close()
+	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&userData); err != nil {
 		revel.ERROR.Println(err)
@@ -44,7 +47,8 @@ func (c App) Auth(code string) revel.Result {
 	service := UserService{}
 	user := c.connected()
 
-	if user.IsNew() {
+
+	if !user.IsNew() {
 		if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
 			revel.INFO.Println("FOUND USER", user)
 		}
@@ -66,7 +70,7 @@ func (c App) Auth(code string) revel.Result {
 	return c.Redirect(c.Request.Referer())
 }
 
-func (c App) Logout() revel.Result {
+func (c *App) Logout() revel.Result {
 	delete(c.Session, "uid")
 	delete(c.RenderArgs, "user")
 	return c.Redirect(c.Request.Referer())
@@ -86,6 +90,7 @@ func setuser(c *revel.Controller) revel.Result {
 
 	if user == nil {
 		user = &models.User{}
+		user.SetIsNew(true)
 	}
 	c.RenderArgs["user"] = user
 	c.RenderArgs["authUrl"] = models.FACEBOOK.AuthCodeURL("state", oauth2.AccessTypeOffline)
@@ -96,6 +101,6 @@ func init() {
 	revel.InterceptFunc(setuser, revel.BEFORE, &App{})
 }
 
-func (c App) connected() *models.User {
+func (c *App) connected() *models.User {
 	return c.RenderArgs["user"].(*models.User)
 }

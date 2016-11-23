@@ -4,6 +4,36 @@ package routes
 import "github.com/revel/revel"
 
 
+type tUser struct {}
+var User tUser
+
+
+func (_ tUser) GetOne(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("User.GetOne", args).Url
+}
+
+func (_ tUser) GetMany(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("User.GetMany", args).Url
+}
+
+func (_ tUser) GetMe(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("User.GetMe", args).Url
+}
+
+
 type tQuest struct {}
 var Quest tQuest
 
@@ -19,29 +49,6 @@ func (_ tQuest) Add(
 	revel.Unbind(args, "experience", experience)
 	revel.Unbind(args, "currency", currency)
 	return revel.MainRouter.Reverse("Quest.Add", args).Url
-}
-
-
-type tUser struct {}
-var User tUser
-
-
-func (_ tUser) Get(
-		id string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("User.Get", args).Url
-}
-
-func (_ tUser) GetMe(
-		id string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("User.GetMe", args).Url
 }
 
 

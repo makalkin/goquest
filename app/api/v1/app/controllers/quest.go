@@ -25,11 +25,6 @@ func (c Quest) Add(title string, experience int, currency int) revel.Result {
 	return c.RenderJson(data)
 }
 
-func checkAuth(c *revel.Controller) revel.Result {
-
-	return nil
-}
-
 func init() {
 	revel.InterceptFunc(checkAuth, revel.BEFORE, &Quest{})
 }

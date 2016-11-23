@@ -47,12 +47,10 @@ func (c *App) Auth(code string) revel.Result {
 	service := UserService{}
 	user := c.connected()
 
-
-	if !user.IsNew() {
-		if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
-			revel.INFO.Println("FOUND USER", user)
-		}
-	} else {
+	if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err == nil {
+		revel.INFO.Println("FOUND USER", user)
+	}
+	if user.IsNew() == true {
 		user.Name = userData["name"].(string)
 		user.Fid = userData["id"].(string)
 	}

@@ -1,11 +1,8 @@
 package services
 
-
-
 type CircleService struct {
-
 }
 
-func (s *CircleService) Create()  {
+func (s *CircleService) Create() {
 
 }

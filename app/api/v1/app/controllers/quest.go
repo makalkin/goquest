@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
+	. "github.com/makalkin/goquest/app/api/v1/app/utils"
 )
 
 type Quest struct {
@@ -26,5 +27,5 @@ func (c Quest) Add(title string, experience int, currency int) revel.Result {
 }
 
 func init() {
-	revel.InterceptFunc(checkAuth, revel.BEFORE, &Quest{})
+	revel.InterceptFunc(CheckAuth, revel.BEFORE, &Quest{})
 }

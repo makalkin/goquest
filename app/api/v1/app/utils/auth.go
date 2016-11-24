@@ -29,11 +29,8 @@ func CheckAuth(c *revel.Controller) revel.Result {
 	if token == "" {
 		return RenderJsonError(c, 401, errors.New("Authentication token is missing."))
 	}
-	// Try to retrieve userID from redis
-
+	// Try to retrieve userID from redis.
 	userId, err := redis.String(models.Redis.Do("GET", token))
-
-	revel.INFO.Println("TOKEN DATA",userId, err)
 
 	if err == nil && userId != "" {
 		// User exists so we let request through with retrieved user ID.
@@ -41,7 +38,6 @@ func CheckAuth(c *revel.Controller) revel.Result {
 	} else {
 		// Token wasn't verified so we try to debug it.
 		tokenData := map[string]interface{}{}
-		revel.INFO.Println("WTF 1")
 		resp, err := http.Get(
 			fmt.Sprintf("https://graph.facebook.com/debug_token?input_token=%s&access_token=%s",
 				url.QueryEscape(token),
@@ -63,7 +59,6 @@ func CheckAuth(c *revel.Controller) revel.Result {
 
 		service := services.UserService{}
 		me := &models.User{}
-		revel.INFO.Println("WTF 1", tokenData["data"])
 		tokenData = tokenData["data"].(map[string]interface{})
 		if isValid, ok := tokenData["is_valid"].(bool); ok && isValid {
 			// Now that we have fid we can get user from our DB.

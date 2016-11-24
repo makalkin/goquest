@@ -36,11 +36,9 @@ func (_ tUser) GetOne(
 }
 
 func (_ tUser) GetMany(
-		id string,
 		) string {
 	args := make(map[string]string)
 	
-	revel.Unbind(args, "id", id)
 	return revel.MainRouter.Reverse("User.GetMany", args).Url
 }
 

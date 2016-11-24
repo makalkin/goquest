@@ -1,19 +1,18 @@
 package utils
 
 import (
-	"gopkg.in/mgo.v2/bson"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+	"github.com/makalkin/goquest/app/api/v1/app/services"
 	"github.com/makalkin/goquest/app/models"
 	"github.com/revel/revel"
-	"strings"
-	"github.com/garyburd/redigo/redis"
+	"gopkg.in/mgo.v2/bson"
 	"net/http"
-	"fmt"
 	"net/url"
-	"encoding/json"
-	"github.com/makalkin/goquest/app/api/v1/app/services"
-	"errors"
+	"strings"
 )
-
 
 func CheckAuth(c *revel.Controller) revel.Result {
 	// Check for Auth token. Must be a valid facebook token from client.
@@ -93,4 +92,3 @@ func CheckAuth(c *revel.Controller) revel.Result {
 	// Everything is ok. We've got the user. Move on.
 	return nil
 }
-

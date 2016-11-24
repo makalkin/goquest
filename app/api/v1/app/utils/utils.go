@@ -22,5 +22,5 @@ func GetPaging(c *revel.Controller) (int, int) {
 
 func RenderJsonError(c *revel.Controller, code int, err error) revel.Result {
 	c.Response.Status = code
-	return c.RenderJson(&map[string]interface{}{"error": err.Error()})
+	return c.RenderJson(&map[string]interface{}{"error": err})
 }

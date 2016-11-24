@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/revel/revel"
 	. "github.com/makalkin/goquest/app/api/v1/app/utils"
+	"github.com/revel/revel"
 )
 
 type Quest struct {

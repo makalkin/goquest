@@ -1,75 +1,34 @@
-# Welcome to Revel
+# GOQUEST
 
-## Getting Started
+**Goquest** is a small pet-project of mine. Here I learn and improve my **GO** (and other) skills. 
 
-A high-productivity web framework for the [Go language](http://www.golang.org/).
+## THE IDEA
 
-### Start the web server:
+The Idea behind **Goquest** is to bring a game element into the everyday life by making activities look like quests
+with rewards, trophies, and experience of course.
+ 
+_Player_ is a user who joined the community. One may be a _questgiver_ or an _adventurer_ or both. To make
+rewards relevant players are divided into _circles_, so that their progress is not diminished by other, more active
+players or currency/experience inflation. Each _player_ can be in multiple _circles_.
 
-    revel run myapp
+_Circle_ is any group: from your family and friends to your event meet up or company. Basically _circles connect_ 
+groups of people with similar interests/location/goal. Inside a _circle_ each _player_ has experience and currency, 
+both gained through _quests_.
 
-   Run with <tt>--help</tt> for options.
+_Quest_ are created by players inside a _circle_, so that they are visible only within it. Each quest has experience 
+and currency reward, but can be extended by _questgiver_ to offer extra _trophies_.
 
-### Go to http://localhost:9000/ and you'll see:
-
-"It works"
-
-### Description of Contents
-
-The default directory structure of a generated Revel application:
-
-    myapp               App root
-      app               App sources
-        controllers     App controllers
-          init.go       Interceptor registration
-        models          App domain models
-        routes          Reverse routes (generated code)
-        views           Templates
-      tests             Test suites
-      conf              Configuration files
-        app.conf        Main configuration file
-        routes          Routes definition
-      messages          Message files
-      public            Public assets
-        css             CSS files
-        js              Javascript files
-        images          Image files
-
-app
-
-    The app directory contains the source code and templates for your application.
-
-conf
-
-    The conf directory contains the application’s configuration files. There are two main configuration files:
-
-    * app.conf, the main configuration file for the application, which contains standard configuration parameters
-    * routes, the routes definition file.
+This is a simplified version of my idea, because, obviously I alone don't have the time and resources to make it happen.
+ I'm not even sure about the _trophies_.
 
 
-messages
+### Things I use
 
-    The messages directory contains all localized message files.
+* [GO](https://golang.org/), duh.
+* [Heroku](https://www.heroku.com/) for free hosting.
+* [Revel](https://revel.github.io) framework for APIs.
+* [React](https://facebook.github.io/react/) for UI. (not yet, but when I'm confident with APIs)
+* Redis for auth checks.
+* MongoDB
 
-public
-
-    Resources stored in the public directory are static assets that are served directly by the Web server. Typically it is split into three standard sub-directories for images, CSS stylesheets and JavaScript files.
-
-    The names of these directories may be anything; the developer need only update the routes.
-
-test
-
-    Tests are kept in the tests directory. Revel provides a testing framework that makes it easy to write and run functional tests against your application.
-
-### Follow the guidelines to start developing your application:
-
-* The README file created within your application.
-* The [Getting Started with Revel](http://revel.github.io/tutorial/index.html).
-* The [Revel guides](http://revel.github.io/manual/index.html).
-* The [Revel sample apps](http://revel.github.io/samples/index.html).
-* The [API documentation](https://godoc.org/github.com/revel/revel).
-
-## Contributing
-We encourage you to contribute to Revel! Please check out the [Contributing to Revel
-guide](https://github.com/revel/revel/blob/master/CONTRIBUTING.md) for guidelines about how
-to proceed. [Join us](https://groups.google.com/forum/#!forum/revel-framework)!
+### More is coming soon™

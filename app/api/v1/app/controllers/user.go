@@ -15,7 +15,7 @@ type User struct {
 }
 
 type APIError struct {
-	Field string `json:"field"`
+	Field string `json:"field,omitempty"`
 	Msg   string `json:"msg"`
 }
 
@@ -32,7 +32,7 @@ func (c *User) GetOne(id string) revel.Result {
 	user := new(models.User)
 	err := service.GetUserById(id, user)
 	if err != nil {
-		return RenderJsonError(c.Controller, 404, err)
+		return RenderJsonError(c.Controller, 404, APIError{Msg: err.Error()})
 	}
 	return c.RenderJson(user)
 }
@@ -46,7 +46,7 @@ func (c *User) GetMany() revel.Result {
 	if err == nil {
 		return c.RenderJson(&map[string]interface{}{"users": users, "paging": paging})
 	} else {
-		return RenderJsonError(c.Controller, 400, err)
+		return RenderJsonError(c.Controller, 400, APIError{Msg: err.Error()})
 	}
 }
 
@@ -55,7 +55,7 @@ func (c User) GetMe() revel.Result {
 	user := new(models.User)
 	err := service.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Query.Get("userId"))}, user)
 	if err != nil {
-		return RenderJsonError(c.Controller, 404, err)
+		return RenderJsonError(c.Controller, 404, APIError{Msg: err.Error()})
 	}
 
 	return c.RenderJson(user)

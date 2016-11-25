@@ -67,7 +67,7 @@ func CheckAuth(c *revel.Controller) revel.Result {
 					return RenderJsonError(
 						c,
 						401,
-						errors.New("This user is not registered please authenticate first."),
+						errors.New("This user is not registered please sign up first."),
 					)
 				}
 				// Update token if it was refreshed.

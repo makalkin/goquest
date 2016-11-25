@@ -10,9 +10,6 @@ type UserService struct {
 	user User
 }
 
-//func (service UserService) getUsers(query bson.M)  {
-//	return DB.Collection("users").Find(query)
-//}
 
 func (service UserService) GetMe(query bson.M, user *User) error {
 	err := DB.Collection("users").FindOne(query, user)

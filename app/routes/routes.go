@@ -4,6 +4,48 @@ package routes
 import "github.com/revel/revel"
 
 
+type tCircle struct {}
+var Circle tCircle
+
+
+func (_ tCircle) Add(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Add", args).Url
+}
+
+func (_ tCircle) GetOne(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Circle.GetOne", args).Url
+}
+
+func (_ tCircle) GetMany(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.GetMany", args).Url
+}
+
+func (_ tCircle) Update(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Update", args).Url
+}
+
+func (_ tCircle) Delete(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Delete", args).Url
+}
+
+
 type tQuest struct {}
 var Quest tQuest
 

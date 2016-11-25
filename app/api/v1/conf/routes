@@ -5,11 +5,17 @@ POST    /quest                                 	Quest.Add
 #PUT   	/quest/:id                              Quest.Update
 #DELETE 	/quest/:id                              Quest.Delete
 
-GET /users										User.GetMany
-GET /users/me									User.GetMe
-GET /users/:id									User.GetOne
+# Users
+GET 	/users										User.GetMany
+GET 	/users/me									User.GetMe
+GET 	/users/:id									User.GetOne
 
-#GET /circles									Circle.GetMany
+# Circles
+GET 	/circles									Circle.GetMany
+GET 	/circles/:id								Circle.GetOne
+POST 	/circles									Circle.Add
+UPDATE 	/circles/:id								Circle.Update
+DELETE 	/circles/:id								Circle.Delete
 
 # Catch all
 #*       /:controller/:action                    :controller.:action

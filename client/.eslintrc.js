@@ -6,16 +6,18 @@ module.exports = {
         "react"
     ],
     "env": {
+        "es6": true,
         "browser": true,
         "node": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
-        "ecmaVersion": 5,
+        "ecmaVersion": 6,
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true,
-            "experimentalObjectRestSpread": true
+            "experimentalObjectRestSpread": true,
+            "spread": true
         }
     },
     "settings": {

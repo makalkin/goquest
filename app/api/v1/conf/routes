@@ -9,6 +9,7 @@ POST    /quest                                 	Quest.Add
 GET 	/users										User.GetMany
 GET 	/users/me									User.GetMe
 GET 	/users/:id									User.GetOne
+POST	/users										User.Add
 
 # Circles
 GET 	/circles									Circle.GetMany

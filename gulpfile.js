@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
-gulp.task('build', ['css', 'js'], function () {
-    return ;
+gulp.task('build', function () {
+    return gulp.src(__dirname + '/client/dist/static/**/*').pipe(gulp.dest(__dirname + "/public"));
 });
 
 gulp.task('css', function () {

@@ -1,9 +1,8 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<div id="app"></div>
+<div id="root"></div>
 
-
-{{append . "footerScripts" "js/app.bundle.js"}}
+{{append . "footerScripts" "js/main.js"}}
 
 {{template "footer.html" .}}

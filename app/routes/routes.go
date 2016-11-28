@@ -49,6 +49,57 @@ func (_ tUser) GetMe(
 	return revel.MainRouter.Reverse("User.GetMe", args).Url
 }
 
+func (_ tUser) Add(
+		token string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "token", token)
+	return revel.MainRouter.Reverse("User.Add", args).Url
+}
+
+
+type tCircle struct {}
+var Circle tCircle
+
+
+func (_ tCircle) Add(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Add", args).Url
+}
+
+func (_ tCircle) GetOne(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Circle.GetOne", args).Url
+}
+
+func (_ tCircle) GetMany(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.GetMany", args).Url
+}
+
+func (_ tCircle) Update(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Update", args).Url
+}
+
+func (_ tCircle) Delete(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Circle.Delete", args).Url
+}
+
 
 type tApp struct {}
 var App tApp

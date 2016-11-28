@@ -1,0 +1,21 @@
+{
+  "name": "goquest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "''",
+  "author": "Jeffrey Schwartz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffschwartz/react-quickstart"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "cd client && npm install && npm run build && cd .. && node node_modules/gulp/bin/gulp build",
+    "setup": "npm install",
+    "build": "webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}

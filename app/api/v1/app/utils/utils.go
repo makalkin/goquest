@@ -3,7 +3,21 @@ package utils
 import (
 	"github.com/revel/revel"
 	"strconv"
+	"fmt"
 )
+
+type APIError struct {
+	Field string `json:"field,omitempty"`
+	Msg   string `json:"msg"`
+}
+
+func (e APIError) Error() string {
+	if e.Field != "" {
+		return fmt.Sprintf("%s: %s", e.Field, e.Msg)
+	} else {
+		return e.Msg
+	}
+}
 
 func GetPaging(c *revel.Controller) (int, int) {
 	var page, perPage int

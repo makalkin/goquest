@@ -1,6 +1,4 @@
-/**
- * A semantic wrapper around bootstrap's css container
- */
+import React from 'react';
 
 const Container = ({children}) => (
     <div className="container">

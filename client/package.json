@@ -1,24 +1,9 @@
 {
-  "name": "@jeffreyschwartz/react-quickstart",
+  "name": "goquest",
   "version": "1.0.0",
-  "description": "React Quickstart with Webpack and Babel",
+  "description": "Goquest web client",
   "main": "''",
-  "keywords": [
-    "React",
-    "Webpack",
-    "ESLint",
-    "Babel",
-    "JavaScript",
-    "Starter",
-    "Quickstart",
-    "Guide",
-    "Template"
-  ],
-  "author": "Jeffrey Schwartz",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jeffschwartz/react-quickstart"
-  },
+  "author": "Maksym Ridush",
   "license": "MIT",
   "scripts": {
     "setup": "npm install",
@@ -34,18 +19,20 @@
   "dependencies": {
     "axios": "^0.13.1",
     "babel-polyfill": "^6.9.1",
-    "react": "^15.2.1",
     "js-cookie": "^2.1.3",
+    "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.1",
     "react-bootstrap": "^0.30.5",
-    "react-dom": "^15.2.1",
+    "react-dom": "^15.4.1",
+    "react-facebook-login": "^3.3.3",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
+    "react-router-redux": "^4.0.7",
     "redux": "^3.5.2",
     "redux-axios-middleware": "^3.0.0",
     "redux-form": "^6.0.2",
-    "validator": "^6.0.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "validator": "^6.0.0"
   },
   "devDependencies": {
     "autoprefixer": "6.3.7",

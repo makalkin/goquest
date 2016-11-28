@@ -1,6 +1,9 @@
 {
   "name": "goquest",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.6.0"
+  },
   "description": "",
   "main": "''",
   "author": "Jeffrey Schwartz",
@@ -10,9 +13,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "cd client && npm install && npm run build && cd .. && node node_modules/gulp/bin/gulp build",
+    "start": "cd client && npm install && npm run build",
     "setup": "npm install",
-    "build": "webpack"
+    "postinstall": "gulp build"
   },
   "dependencies": {},
   "devDependencies": {

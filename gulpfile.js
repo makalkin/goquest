@@ -1,7 +1,9 @@
 var gulp = require('gulp');
-
+var debug = require('gulp-debug');
 gulp.task('build', function () {
-    return gulp.src(__dirname + '/client/dist/static/**/*').pipe(gulp.dest(__dirname + "/public"));
+    var stream = gulp.src(__dirname + '/client/dist/static/**/*');
+    stream.pipe(debug());
+    return stream.pipe(gulp.dest(__dirname + "/public"));
 });
 
 gulp.task('css', function () {

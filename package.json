@@ -18,6 +18,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-debug": "^3.0.0"
   }
 }

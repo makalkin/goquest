@@ -1,1 +1,1 @@
-web: revel run github.com/makalkin/goquest prod $PORT npm run setup && npm run heroku-postbuild
+web: revel run github.com/makalkin/goquest prod $PORT && npm run setup && npm run heroku-postbuild

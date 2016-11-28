@@ -15,7 +15,7 @@
   "scripts": {
     "start": "cd client && npm install && npm run build",
     "setup": "npm install",
-    "postinstall": "gulp build"
+    "postinstall": "node node_modules/gulp/bin/gulp build"
   },
   "dependencies": {},
   "devDependencies": {

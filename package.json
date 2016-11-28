@@ -13,9 +13,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "cd client && npm install && npm run build",
-    "setup": "npm install",
-    "heroku-postbuild": "gulp build"
+    "start": "cd client && npm install && npm run build && cd .. && node node_modules/gulp/bin/gulp build",
+    "setup": "npm install"
   },
   "dependencies": {},
   "devDependencies": {

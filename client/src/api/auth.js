@@ -1,4 +1,4 @@
-import {loginRequest, logout, refreshToken} from '../actions/auth';
+import {loginRequest, logout, refreshToken, login} from '../actions/auth';
 
 /**
  * This API provides methods to work with user authentication in application.
@@ -6,16 +6,16 @@ import {loginRequest, logout, refreshToken} from '../actions/auth';
 class AuthAPI {
 	/**
 	 * Authenticate user with given credentials. On success acquire and save auth payload.
-	 * @param email
-	 * @param password
+	 * @param response
 	 */
-	login(email, password) {
+	login(response) {
 		return dispatch => {
-			return dispatch(loginRequest(email, password)).then(response => {
-				return response;
-			}).catch((response) => {
-				return response;
-			});
+		    return dispatch(login(response));
+			// return dispatch(loginRequest(response.authToken)).then(response => {
+			// 	return response;
+			// }).catch((response) => {
+			// 	return response;
+			// });
 		}
 	}
 

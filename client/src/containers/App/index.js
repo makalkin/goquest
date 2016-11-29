@@ -18,7 +18,10 @@ export  default class App extends React.Component {
         return (
             <div>
                 <AppNavbar brand="GOQUEST"/>
-                {this.props.children}
+                <div className="container">
+                    {this.props.children}
+
+                </div>
             </div>
         );
     }

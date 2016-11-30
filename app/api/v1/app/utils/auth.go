@@ -29,11 +29,11 @@ func CheckAuth(c *revel.Controller) revel.Result {
 		return RenderJsonError(c, 401, errors.New("Authentication token is missing."))
 	}
 	// Try to retrieve userID from redis.
-	userId, err := redis.String(models.Redis.Do("GET", token))
+	userID, err := redis.String(models.Redis.Do("GET", token))
 
-	if err == nil && userId != "" {
+	if err == nil && userID != "" {
 		// User exists so we let request through with retrieved user ID.
-		c.Params.Query.Set("userId", userId)
+		c.Params.Set("userID", userID)
 	} else {
 		// Token wasn't verified so we try to debug it.
 		tokenData := map[string]interface{}{}
@@ -81,7 +81,7 @@ func CheckAuth(c *revel.Controller) revel.Result {
 					}
 				}
 				_, err = models.Redis.Do("SET", token, me.Id.Hex())
-				c.Params.Query.Set("userId", me.Id.Hex())
+				c.Params.Set("userID", me.Id.Hex())
 			} else {
 				return RenderJsonError(c, 500, err)
 			}

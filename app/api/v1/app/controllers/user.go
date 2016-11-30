@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/asaskevich/govalidator"
 	"github.com/makalkin/goquest/app/api/v1/app/services"
 	. "github.com/makalkin/goquest/app/api/v1/app/utils"
@@ -9,14 +10,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"net/http"
 	"net/url"
-	"encoding/json"
 )
 
 type User struct {
 	*revel.Controller
 }
-
-
 
 func (c *User) GetOne(id string) revel.Result {
 	if !govalidator.IsMongoID(id) {
@@ -34,7 +32,6 @@ func (c *User) GetOne(id string) revel.Result {
 
 func (c *User) GetMany() revel.Result {
 	service := services.UserService{}
-	revel.INFO.Println("WTF", c.Params.Query.Get("userId"))
 	page, perPage := GetPaging(c.Controller)
 
 	users, paging, err := service.GetUsers(nil, page, perPage)
@@ -48,7 +45,7 @@ func (c *User) GetMany() revel.Result {
 func (c User) GetMe() revel.Result {
 	service := services.UserService{}
 	user := new(models.User)
-	err := service.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Query.Get("userId"))}, user)
+	err := service.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Query.Get("userID"))}, user)
 	if err != nil {
 		return RenderJsonError(c.Controller, 404, APIError{Msg: err.Error()})
 	}
@@ -56,6 +53,7 @@ func (c User) GetMe() revel.Result {
 	return c.RenderJson(user)
 }
 
+// TODO: review user registration and auth
 func (c User) Add(token string) revel.Result {
 	userData := map[string]interface{}{}
 	resp, err := http.Get("https://graph.facebook.com/me?fields=id,name&access_token=" +
@@ -74,7 +72,7 @@ func (c User) Add(token string) revel.Result {
 	user := new(models.User)
 
 	if err := service.GetUser(bson.M{"fid": userData["id"]}, user); err != nil {
-		return RenderJsonError(c.Controller, 400, APIError{Msg: err.Error()})	// Look into this case
+		return RenderJsonError(c.Controller, 400, APIError{Msg: err.Error()}) // Look into this case
 	}
 
 	if user.IsNew() == true {
@@ -91,7 +89,6 @@ func (c User) Add(token string) revel.Result {
 
 	return c.RenderJson("")
 }
-
 
 func init() {
 	revel.InterceptFunc(CheckAuth, revel.BEFORE, &User{})

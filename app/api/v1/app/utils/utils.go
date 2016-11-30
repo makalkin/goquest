@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/revel/revel"
 	"strconv"
-	"fmt"
 )
 
 type APIError struct {

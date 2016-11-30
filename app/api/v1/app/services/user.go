@@ -4,12 +4,12 @@ import (
 	. "github.com/makalkin/goquest/app/models"
 	"github.com/maxwellhealth/bongo"
 	"gopkg.in/mgo.v2/bson"
+	"gopkg.in/mgo.v2"
 )
 
 type UserService struct {
-	user User
+	User
 }
-
 
 func (service UserService) GetMe(query bson.M, user *User) error {
 	err := DB.Collection("users").FindOne(query, user)
@@ -49,5 +49,30 @@ func (service UserService) AddUser(user *User) error {
 
 func (service UserService) UpdateUser(user *User) error {
 	err := DB.Collection("users").Save(user)
+	return err
+}
+
+func (s UserService) AddCircle(circleID string) error {
+	circle := new(Circle)
+	service := CircleService{}
+
+	err := service.Get(bson.M{"_id": bson.ObjectIdHex(circleID)}, circle)
+	if err != nil {
+		return err
+	}
+
+	user := s.User
+	userCircle := UserCircle{
+		Circle: mgo.DBRef{
+			Collection: "circles",
+			Id: circle.Id,
+		},
+		Experience: 0,
+		Currency: 0,
+	}
+
+	user.Circles = append(user.Circles, userCircle)
+
+	err = s.UpdateUser(&user)
 	return err
 }

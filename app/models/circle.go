@@ -6,7 +6,7 @@ import (
 
 type Circle struct {
 	Base    `bson:",inline"`
-	Creator User
-	Private bool
-	Quests  []mgo.DBRef
+	Creator mgo.DBRef   `bson:",omitempty" json:"creator"`
+	Private bool        `json:"private"`
+	Quests  []mgo.DBRef `bson:",omitempty" json:"quests,omitempty"`
 }

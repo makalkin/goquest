@@ -75,6 +75,6 @@ log/
 node_modules/
 
 # Revel
-test-results/
-tmp/
-routes/
+app/test-results/
+app/tmp/
+app/routes/

@@ -45,7 +45,43 @@ func (c Circle) Add() revel.Result {
 }
 
 func (c Circle) GetOne(id string) revel.Result {
-	return c.RenderText("")
+	if !govalidator.IsMongoID(id) {
+		return RenderJsonError(c.Controller, 400, APIError{Field: "id", Msg: "Not a valid mongo ID."})
+	}
+
+	messages := make(chan error, 2)
+	service := services.CircleService{}
+	users := services.UserService{}
+
+	circle := new(models.Circle)
+	me := new(models.User)
+
+	go func () {
+		messages <- users.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Get("userID"))}, me)
+	}()
+
+	go func() {
+		messages <- service.Get(bson.M{"_id": bson.ObjectIdHex(id)}, circle)
+	}()
+
+	userErr, circleErr  := <- messages, <- messages
+	close(messages)
+	if userErr == nil && circleErr == nil {
+		if circle.Private {
+			for _, v := range me.Circles {
+				if v.Circle.Id == circle.Id {
+					return c.RenderJson(circle)
+				}
+			}
+			return RenderJsonError(c.Controller, 400, APIError{Msg:"Circle is private."})
+		}
+		return c.RenderJson(circle)
+	} else {
+		if userErr != nil {
+			return RenderJsonError(c.Controller, 400, APIError{Msg: userErr.Error()})
+		}
+		return RenderJsonError(c.Controller, 400, APIError{Msg: circleErr.Error()})
+	}
 }
 
 func (c Circle) GetMany() revel.Result {

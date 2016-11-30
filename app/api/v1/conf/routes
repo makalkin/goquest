@@ -1,3 +1,5 @@
+# Tests
+module:testrunner
 # Quests
 POST    /quest                                 	Quest.Add
 #GET    	/quest/:id                              Quest.Get

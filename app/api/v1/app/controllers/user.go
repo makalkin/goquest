@@ -45,7 +45,7 @@ func (c *User) GetMany() revel.Result {
 func (c User) GetMe() revel.Result {
 	service := services.UserService{}
 	user := new(models.User)
-	err := service.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Query.Get("userID"))}, user)
+	err := service.GetMe(bson.M{"_id": bson.ObjectIdHex(c.Params.Get("userID"))}, user)
 	if err != nil {
 		return RenderJsonError(c.Controller, 404, APIError{Msg: err.Error()})
 	}

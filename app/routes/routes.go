@@ -45,6 +45,15 @@ func (_ tCircle) Delete(
 	return revel.MainRouter.Reverse("Circle.Delete", args).Url
 }
 
+func (_ tCircle) Join(
+		id string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("Circle.Join", args).Url
+}
+
 
 type tQuest struct {}
 var Quest tQuest

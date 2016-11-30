@@ -15,6 +15,7 @@ POST	/users										User.Add
 GET 	/circles									Circle.GetMany
 GET 	/circles/:id								Circle.GetOne
 POST 	/circles									Circle.Add
+POST 	/circles/:id/join							Circle.Join
 UPDATE 	/circles/:id								Circle.Update
 DELETE 	/circles/:id								Circle.Delete
 

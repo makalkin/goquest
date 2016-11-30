@@ -37,6 +37,7 @@ class AboutContainer extends React.Component {
                                         onClick={componentClicked}
                                         callback={this.responseFacebook}
                                         size="medium"
+                                        version="2.8"
                                     />
                                 </p>
                             ) : (

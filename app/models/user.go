@@ -12,8 +12,8 @@ type UserCircle struct {
 
 type User struct {
 	Base        `bson:",inline"`
-	AccessToken string `bson:"access_token" json:"accessToken,omitempty"`
-	Name        string `json:"name"`
-	Fid         string `json:"fid,omitempty"`
+	AccessToken string       `bson:"access_token" json:"accessToken,omitempty"`
+	Name        string       `json:"name"`
+	Fid         string       `json:"fid,omitempty"`
 	Circles     []UserCircle `bson:",omitempty" json:"circles,omitempty"`
 }

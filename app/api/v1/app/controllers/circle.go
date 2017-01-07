@@ -1,14 +1,14 @@
 package controllers
 
 import (
-	"github.com/revel/revel"
-	"github.com/makalkin/goquest/app/api/v1/app/services"
-	."github.com/makalkin/goquest/app/api/v1/app/utils"
-	"github.com/makalkin/goquest/app/models"
-	"gopkg.in/mgo.v2"
-	"github.com/asaskevich/govalidator"
-	"gopkg.in/mgo.v2/bson"
 	"encoding/json"
+	"github.com/asaskevich/govalidator"
+	"github.com/makalkin/goquest/app/api/v1/app/services"
+	. "github.com/makalkin/goquest/app/api/v1/app/utils"
+	"github.com/makalkin/goquest/app/models"
+	"github.com/revel/revel"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Circle struct {
@@ -20,8 +20,8 @@ func (c Circle) Add() revel.Result {
 	userID := bson.ObjectIdHex(c.Params.Get("userID"))
 	type PostPayload struct {
 		Private bool `json:"private"`
-	} 
-	
+	}
+
 	var payload PostPayload
 	err := json.NewDecoder(c.Request.Body).Decode(&payload)
 	if err != nil {
@@ -31,12 +31,12 @@ func (c Circle) Add() revel.Result {
 	circle := &models.Circle{
 		Creator: mgo.DBRef{
 			Collection: "users",
-			Id: userID,
+			Id:         userID,
 		},
 		Private: payload.Private,
 	}
 
-	err = service.Add(circle);
+	err = service.Add(circle)
 
 	if err == nil {
 		return c.RenderJson(circle)
@@ -60,14 +60,13 @@ func (c Circle) Delete() revel.Result {
 	return c.RenderText("")
 }
 
-
 func (c Circle) Join(id string) revel.Result {
 	if !govalidator.IsMongoID(id) {
 		return RenderJsonError(c.Controller, 400, APIError{Field: "id", Msg: "Not a valid mongo ID."})
 	}
 
 	user := c.RenderArgs["user"].(models.User)
-	userService := services.UserService{User: user,}
+	userService := services.UserService{User: user}
 
 	err := userService.AddCircle(id)
 	if err != nil {
@@ -77,7 +76,6 @@ func (c Circle) Join(id string) revel.Result {
 	return c.RenderJson(true)
 
 }
-
 
 func init() {
 	revel.InterceptFunc(CheckAuth, revel.BEFORE, &Circle{})

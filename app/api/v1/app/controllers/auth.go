@@ -49,5 +49,6 @@ func (c Auth) SignUp(token string) revel.Result {
 		return RenderJsonError(c.Controller, 400, APIError{Msg: err.Error()})
 	}
 
+	c.Response.Status = 201
 	return c.RenderJson("")
 }

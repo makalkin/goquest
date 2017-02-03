@@ -1,17 +1,20 @@
 # Tests
 module:testrunner
+
+# Auth
+POST    /sign-up                                Auth.SignUp
+
 # Quests
 POST    /quest                                 	Quest.Add
-#GET    	/quest/:id                              Quest.Get
-#GET    	/quest			                        Quest.Get
+#GET    /quest/:id                              Quest.Get
+#GET    /quest			                        Quest.Get
 #PUT   	/quest/:id                              Quest.Update
-#DELETE 	/quest/:id                              Quest.Delete
+#DELETE /quest/:id                              Quest.Delete
 
 # Users
 GET 	/users										User.GetMany
 GET 	/users/me									User.GetMe
 GET 	/users/:id									User.GetOne
-POST	/users										User.Add
 
 # Circles
 GET 	/circles									Circle.GetMany

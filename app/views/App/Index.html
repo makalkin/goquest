@@ -1,8 +1,21 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<div id="root"></div>
+<header class="page-header" style="background-color:#f1ee00">
+    <div class="container">
+        <div class="row">
+            <h1>Goquest<small> under development.</small></h1>
+        </div>
+    </div>
+</header>
 
-{{append . "footerScripts" "js/main.js"}}
+
+<div class="container">
+    <div class="row">
+        <h3>GitHub: <a href="https://github.com/makalkin/goquest">https://github.com/makalkin/goquest</a></h3>
+
+    </div>
+</div>
+<div id="root"></div>
 
 {{template "footer.html" .}}

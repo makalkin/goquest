@@ -28,7 +28,7 @@ This is a simplified version of my idea, because, obviously I alone don't have t
 * [Heroku](https://www.heroku.com/) for free hosting.
 * [Revel](https://revel.github.io) framework for APIs.
 * [React](https://facebook.github.io/react/) for UI. (not yet, but when I'm confident with APIs)
-* Redis for auth checks.
+* Redis
 * MongoDB
 
 ### More is coming soon™

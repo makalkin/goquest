@@ -3,8 +3,8 @@ package services
 import (
 	. "github.com/makalkin/goquest/app/models"
 	"github.com/maxwellhealth/bongo"
-	"gopkg.in/mgo.v2/bson"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type UserService struct {
@@ -65,10 +65,10 @@ func (s UserService) AddCircle(circleID string) error {
 	userCircle := UserCircle{
 		Circle: mgo.DBRef{
 			Collection: "circles",
-			Id: circle.Id,
+			Id:         circle.Id,
 		},
 		Experience: 0,
-		Currency: 0,
+		Currency:   0,
 	}
 
 	user.Circles = append(user.Circles, userCircle)

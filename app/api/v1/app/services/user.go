@@ -52,16 +52,16 @@ func (service UserService) UpdateUser(user *User) error {
 	return err
 }
 
-func (s UserService) AddCircle(circleID string) error {
+func (service UserService) AddCircle(circleID string) error {
 	circle := new(Circle)
-	service := CircleService{}
+	circleService := CircleService{}
 
-	err := service.Get(bson.M{"_id": bson.ObjectIdHex(circleID)}, circle)
+	err := circleService.Get(bson.M{"_id": bson.ObjectIdHex(circleID)}, circle)
 	if err != nil {
 		return err
 	}
 
-	user := s.User
+	user := service.User
 	userCircle := UserCircle{
 		Circle: mgo.DBRef{
 			Collection: "circles",
@@ -73,6 +73,6 @@ func (s UserService) AddCircle(circleID string) error {
 
 	user.Circles = append(user.Circles, userCircle)
 
-	err = s.UpdateUser(&user)
+	err = service.UpdateUser(&user)
 	return err
 }

@@ -11,7 +11,7 @@ type Base struct {
 	exists bool
 }
 
-// Satisfy the new tracker interface
+// Satisfy the NewTracker interface
 func (d *Base) SetIsNew(isNew bool) {
 	d.exists = !isNew
 }
@@ -20,7 +20,7 @@ func (d *Base) IsNew() bool {
 	return !d.exists
 }
 
-// Satisfy the document interface
+// Satisfy the Document interface
 func (d *Base) GetId() bson.ObjectId {
 	return d.Id
 }
